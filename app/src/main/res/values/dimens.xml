@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fragment_form_frame_margin">12dp</dimen>
+    <dimen name="fragment_form_button_top_margin">8dp</dimen>
+    <dimen name="fragment_form_button_height">60dp</dimen>
+
+</resources>

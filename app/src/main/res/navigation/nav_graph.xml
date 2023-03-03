@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchArtistFragment">
+    <fragment
+        android:id="@+id/searchArtistFragment"
+        android:name="com.mbrainz.sample.ui.feature.search.ArtistSearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search_artist">
+        <action
+            android:id="@+id/action_searchArtistFragment_to_detailArtistFragment"
+            app:destination="@id/detailArtistFragment">
+            <argument
+                android:name="artistId"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailArtistFragment"
+        android:name="com.mbrainz.sample.ui.feature.artist.ArtistDetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail_artist">
+        <argument
+            android:name="artistId"
+            app:argType="string" />
+    </fragment>
+</navigation>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MB Sample</string>
+    <string name="fragment_search_hint">Search for an artist</string>
+    <string name="fragment_search_result_header">Artists found (%1$s)</string>
+
+    <string name="error_default_message">Something bad happened</string>
+</resources>
