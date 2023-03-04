@@ -14,7 +14,6 @@ import org.koin.android.ext.android.inject
 class ArtistDetailFragment: Fragment() {
     private val args: ArtistDetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentDetailArtistBinding
-    private val logger: LocalLogger by inject()
 
     @CallSuper
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -29,6 +28,5 @@ class ArtistDetailFragment: Fragment() {
     }
 
     private fun FragmentDetailArtistBinding.init() {
-        logger.logInfo("coming from ${args.artistId}")
     }
 }

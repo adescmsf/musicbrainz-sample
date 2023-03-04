@@ -2,9 +2,11 @@ package com.mbrainz.sample.ui.feature.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.mbrainz.sample.data.model.Artist
 import com.mbrainz.sample.databinding.ItemSearchArtistBinding
+import com.mbrainz.sample.ui.common.trimChar
 
 class ArtistSearchAdapter(
     private val onArtistSelected: (Artist) -> Unit
@@ -42,9 +44,11 @@ class ArtistSearchAdapter(
         private val binding: ItemSearchArtistBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(artist: Artist) {
+            val genre = artist.genre.trimChar(16)
             binding.apply {
                 itemSearchArtistName.text = artist.fullArtistName()
-                itemSearchArtistGenre.text = artist.genre
+                itemSearchArtistGenre.isVisible = genre.isNotEmpty()
+                itemSearchArtistGenre.text = genre
             }
         }
     }

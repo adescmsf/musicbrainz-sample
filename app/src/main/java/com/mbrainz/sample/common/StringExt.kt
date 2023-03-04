@@ -23,3 +23,8 @@ fun String.countryCodeToUnicodeFlag(): String {
             String(bytes, Charsets.UTF_16)
         }
 }
+
+fun String.trimChar(nbChars: Int) : String {
+    if (this.length <= nbChars) return this
+    return this.take(nbChars).trim() + "..."
+}

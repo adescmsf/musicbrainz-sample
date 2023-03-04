@@ -1,4 +1,4 @@
-package com.mbrainz.sample.data.model.parser
+package com.mbrainz.sample.data.model.mapper
 
 import com.mbrainz.sample.data.model.Artist
 import com.mbrainz.sample.data.model.ArtistType
@@ -8,7 +8,7 @@ import com.mbrainz.sample.data.model.remote.BeginAreaEntity
 import com.mbrainz.sample.data.model.remote.LifeSpanEntity
 import com.mbrainz.sample.data.model.remote.ReleaseEntity
 
-object ArtistParser {
+object ArtistMapper {
     private const val filterReleaseStatus = "Official"
     private const val scoreFilter = 20
 

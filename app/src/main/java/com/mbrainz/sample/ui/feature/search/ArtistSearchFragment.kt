@@ -11,17 +11,20 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mbrainz.sample.R
 import com.mbrainz.sample.data.model.Artist
 import com.mbrainz.sample.databinding.FragmentSearchArtistBinding
 import com.mbrainz.sample.common.Logger
+import com.mbrainz.sample.ui.common.UserErrorDisplay
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ArtistSearchFragment: Fragment() {
     private lateinit var binding: FragmentSearchArtistBinding
     private lateinit var artistsAdapter: ArtistSearchAdapter
-    private val logger: Logger by inject()
+    private val userErrorDisplay: UserErrorDisplay by inject()
     private val viewModel: ArtistSearchViewModel by viewModel()
 
     @CallSuper
@@ -46,11 +49,15 @@ class ArtistSearchFragment: Fragment() {
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = artistsAdapter
             isVisible = true
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
         fragmentSearchStringEditText.doOnTextChanged { text, _, _, _ ->
             text?.let { searchText ->
-                if (searchText.length > 2) viewModel.searchArtist(searchText.toString())
+                viewModel.searchArtist(searchText.toString())
             }
+        }
+        fragmentSearchRetryButton.setOnClickListener {
+            viewModel.searchArtist(fragmentSearchStringEditText.text.toString())
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.searchedArtist.collect { state ->
@@ -66,7 +73,7 @@ class ArtistSearchFragment: Fragment() {
                         setLoadingState()
                     }
                     is ArtistSearchState.Error -> {
-                        // display toast
+                        userErrorDisplay.displayUserMessage(state.error)
                         setErrorState()
                     }
                 }
@@ -75,27 +82,47 @@ class ArtistSearchFragment: Fragment() {
     }
 
     private fun setErrorState() {
-
+        binding.apply {
+            fragmentSearchStringEditText.clearFocus()
+            fragmentSearchRvHeader.isVisible = false
+            fragmentSearchResultRecyclerView.isVisible = false
+            fragmentSearchProgressBar.isVisible = false
+            fragmentSearchErrorTextview.isVisible = true
+            fragmentSearchRetryButton.isVisible = true
+        }
     }
 
     private fun setEmptyState() {
         artistsAdapter.updateArtistsList(emptyList())
-        binding.fragmentSearchRvHeader.isVisible = false
-        binding.fragmentSearchResultRecyclerView.isVisible = false
+        binding.apply {
+            fragmentSearchRvHeader.isVisible = false
+            fragmentSearchResultRecyclerView.isVisible = false
+            fragmentSearchProgressBar.isVisible = false
+            fragmentSearchErrorTextview.isVisible = false
+            fragmentSearchRetryButton.isVisible = false
+        }
     }
 
     private fun setResultState(result: List<Artist>) {
-        binding.fragmentSearchRvHeader.apply {
-            isVisible = true
-            text = "Artists ${result.size}"
+        binding.apply {
+            fragmentSearchRvHeader.text = getString(R.string.fragment_search_result_header, "${result.size}")
+            fragmentSearchRvHeader.isVisible = true
+            fragmentSearchResultRecyclerView.isVisible = true
+            fragmentSearchProgressBar.isVisible = false
+            fragmentSearchErrorTextview.isVisible = false
+            fragmentSearchRetryButton.isVisible = false
         }
-        binding.fragmentSearchResultRecyclerView.isVisible = true
         artistsAdapter.updateArtistsList(result)
     }
 
     private fun setLoadingState() {
-        binding.fragmentSearchRvHeader.isVisible = false
-        binding.fragmentSearchResultRecyclerView.isVisible = false
+        binding.apply {
+            fragmentSearchRvHeader.isVisible = false
+            fragmentSearchResultRecyclerView.isVisible = false
+            fragmentSearchProgressBar.isVisible = true
+            fragmentSearchErrorTextview.isVisible = false
+            fragmentSearchRetryButton.isVisible = false
+        }
     }
 
     private fun navigateDetails(artist: Artist) {

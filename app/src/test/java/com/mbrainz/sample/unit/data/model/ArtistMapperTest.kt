@@ -1,15 +1,15 @@
 package com.mbrainz.sample.unit.data.model
 
 import com.mbrainz.sample.TestFixtures
-import com.mbrainz.sample.data.model.parser.ArtistParser
+import com.mbrainz.sample.data.model.mapper.ArtistMapper
 import com.mbrainz.sample.data.model.ArtistType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-class ArtistParserTest {
+class ArtistMapperTest {
     @Test
     fun `WHEN artist entity parsed THEN all business rules are applied`() {
-        val res = ArtistParser.transformArtistsEntity(
+        val res = ArtistMapper.transformArtistsEntity(
             listOf(TestFixtures.basicBandArtistEntity, TestFixtures.basicSoloArtistEntity, TestFixtures.basicUnknownArtistEntity)
         )
         // assert that artists with score < 30 are excluded
