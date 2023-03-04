@@ -1,8 +1,7 @@
 package com.mbrainz.sample.data.model
 
 import com.mbrainz.sample.ui.common.countryCodeToUnicodeFlag
-import java.util.*
-
+import java.util.Locale
 
 enum class ArtistType(val value: String) {
     PERSON("PERSON"),
@@ -22,12 +21,34 @@ data class Artist(
     val releases: List<Release>
 ) {
     fun fullArtistName(): String {
-        val validCountryList = Locale.getISOCountries().toList()
-        val emoji = if (country.isNotEmpty() && validCountryList.contains(country)) country.countryCodeToUnicodeFlag() else ""
+        val emoji = countryEmoji()
         return if (creationYear.isEmpty()) {
             "$emoji $name".trim()
         } else {
-            "$emoji $name (${creationYear})".trim()
+            "$emoji $name ($creationYear)".trim()
         }
+    }
+
+    // TODO: should be i18n
+    fun allInformations(): String {
+        val informations = mutableListOf<String>()
+        if (country.isNotEmpty()) informations.add(countryEmoji())
+        if (bandType().isNotEmpty()) informations.add(bandType())
+        if (origin.isNotEmpty()) informations.add("From $origin")
+        if (creationYear.isNotEmpty()) informations.add("Since $creationYear")
+        if (informations.isEmpty()) return ""
+        return informations.joinToString(" • ")
+    }
+
+    private fun countryEmoji(): String {
+        val validCountryList = Locale.getISOCountries().toList()
+        return if (country.isNotEmpty() && validCountryList.contains(country)) country.countryCodeToUnicodeFlag() else ""
+    }
+
+    // TODO: should be i18n
+    private fun bandType() = when (type) {
+        ArtistType.PERSON -> "Solo artist"
+        ArtistType.BAND -> "Band artist"
+        else -> ""
     }
 }

@@ -5,7 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.mbrainz.sample.data.ArtistRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -14,7 +17,7 @@ class ArtistSearchViewModel(
 ) : ViewModel() {
     private val artist = MutableSharedFlow<String>(replay = 1)
     val searchedArtist = artist.transformLatest { artist ->
-        if (artist.length <=2) {
+        if (artist.length <= 2) {
             emit(ArtistSearchState.Success(emptyList()))
             return@transformLatest
         }

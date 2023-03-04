@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
@@ -14,8 +15,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fragment_search_string_layout"
+        style="@style/FormScreenTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="5dp"
         android:layout_margin="@dimen/fragment_form_button_top_margin"
         app:layout_constraintTop_toBottomOf="@+id/fragment_search_toolbar"
         app:endIconMode="clear_text"
@@ -37,10 +40,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fragment_search_result_header"
-        android:layout_marginVertical="@dimen/default_margin"
         android:padding="@dimen/default_margin"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
-        android:background="@color/purple_200"
+        android:background="@color/colorPrimaryDark"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/fragment_search_string_layout"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        android:indeterminateTint="@color/purple_200"
+        android:indeterminateTint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -22,7 +22,10 @@ interface MusicBrainzRetrofitService {
 
 @OptIn(ExperimentalSerializationApi::class)
 class MusicBrainzApiManagerImpl : MusicBrainzApiManager {
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json {
+        ignoreUnknownKeys = true
+        coerceInputValues = true
+    }
 
     private val okHttpClient = OkHttpClient.Builder().apply {
         addInterceptor(

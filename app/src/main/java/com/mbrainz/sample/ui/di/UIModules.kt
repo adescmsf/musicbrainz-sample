@@ -20,6 +20,7 @@ private val applicationModules = module {
 
 private val viewModelModule = module {
     viewModel { ArtistSearchViewModel(get()) }
+    viewModel { ArtistDetailViewModel(get()) }
 }
 
 val uiModules = arrayOf(applicationModules, viewModelModule)

@@ -1,8 +1,8 @@
 package com.mbrainz.sample.unit.data.model
 
 import com.mbrainz.sample.TestFixtures
-import com.mbrainz.sample.data.model.mapper.ArtistMapper
 import com.mbrainz.sample.data.model.ArtistType
+import com.mbrainz.sample.data.model.mapper.ArtistMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 

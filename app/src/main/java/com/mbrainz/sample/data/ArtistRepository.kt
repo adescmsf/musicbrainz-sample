@@ -3,6 +3,7 @@ package com.mbrainz.sample.data
 import com.mbrainz.sample.common.AppDispatchers
 import com.mbrainz.sample.data.manager.MusicBrainzApiManager
 import com.mbrainz.sample.data.model.mapper.ArtistMapper
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 class ArtistRepository(

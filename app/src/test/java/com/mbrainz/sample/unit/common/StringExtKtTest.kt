@@ -4,7 +4,6 @@ import com.mbrainz.sample.ui.common.trimChar
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-
 class StringExtKtTest {
     @Test
     fun `GIVEN long string THEN string is trimmed`() {

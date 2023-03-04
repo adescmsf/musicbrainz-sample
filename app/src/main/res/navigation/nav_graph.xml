@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_search_artist">
         <action
             android:id="@+id/action_searchArtistFragment_to_detailArtistFragment"
-            app:destination="@id/detailArtistFragment">
+            app:destination="@id/detailArtistFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
             <argument
                 android:name="artistId"
                 app:argType="string" />

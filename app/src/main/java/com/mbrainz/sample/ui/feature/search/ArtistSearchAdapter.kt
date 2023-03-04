@@ -27,18 +27,15 @@ class ArtistSearchAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return artists.size
-    }
+    override fun getItemCount() = artists.size
 
-    fun updateArtistsList(newItems: List<Artist>) {
-        notifyItemRangeRemoved(0, artists.size)
+    fun updateArtistsList(newItems: List<Artist>) =
         artists.apply {
+            notifyItemRangeRemoved(0, size)
             clear()
             addAll(newItems)
+            notifyItemRangeInserted(0, size)
         }
-        notifyItemRangeInserted(0, artists.size)
-    }
 
     class ViewHolder(
         private val binding: ItemSearchArtistBinding

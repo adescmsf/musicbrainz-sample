@@ -24,7 +24,7 @@ fun String.countryCodeToUnicodeFlag(): String {
         }
 }
 
-fun String.trimChar(nbChars: Int) : String {
+fun String.trimChar(nbChars: Int): String {
     if (this.length <= nbChars) return this
     return this.take(nbChars).trim() + "..."
 }

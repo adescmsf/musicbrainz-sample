@@ -33,6 +33,8 @@ object ArtistMapper {
         releases = artistEntity.releases
             .filter { it.status == filterReleaseStatus }
             .map { transformReleaseEntity(it) }
+            .distinctBy { it.name.lowercase() }
+            .sortedBy { it.releaseDate }
     )
 
     private fun transformLifeSpanEntity(lifeSpanEntity: LifeSpanEntity?) =

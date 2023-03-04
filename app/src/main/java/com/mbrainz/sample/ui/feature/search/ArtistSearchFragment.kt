@@ -16,12 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mbrainz.sample.R
 import com.mbrainz.sample.data.model.Artist
 import com.mbrainz.sample.databinding.FragmentSearchArtistBinding
-import com.mbrainz.sample.common.Logger
 import com.mbrainz.sample.ui.common.UserErrorDisplay
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ArtistSearchFragment: Fragment() {
+class ArtistSearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchArtistBinding
     private lateinit var artistsAdapter: ArtistSearchAdapter
     private val userErrorDisplay: UserErrorDisplay by inject()
@@ -36,14 +35,16 @@ class ArtistSearchFragment: Fragment() {
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        artistsAdapter = ArtistSearchAdapter(onArtistSelected = { artistSelected ->
-            navigateDetails(artistSelected)
-        })
+        artistsAdapter = ArtistSearchAdapter(
+            onArtistSelected = { artistSelected ->
+                navigateDetails(artistSelected)
+            }
+        )
         binding.init()
     }
 
     private fun FragmentSearchArtistBinding.init() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(fragmentSearchToolbar)
+        //(requireActivity() as AppCompatActivity).setSupportActionBar(fragmentSearchToolbar)
         fragmentSearchResultRecyclerView.apply {
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -69,9 +70,8 @@ class ArtistSearchFragment: Fragment() {
                             setEmptyState()
                         }
                     }
-                    is ArtistSearchState.Loading -> {
-                        setLoadingState()
-                    }
+                    is ArtistSearchState.Loading -> setLoadingState()
+
                     is ArtistSearchState.Error -> {
                         userErrorDisplay.displayUserMessage(state.error)
                         setErrorState()

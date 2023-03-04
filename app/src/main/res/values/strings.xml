@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Sample</string>
     <string name="fragment_search_hint">Search for an artist</string>
-    <string name="fragment_search_result_header">Result (%1$s)</string>
+    <string name="fragment_search_result_header">Results (%1$s)</string>
+    <string name="fragment_detail_release_header">Official Releases (%1$s)</string>
 
     <string name="error_default_message">Something bad happened</string>
     <string name="error_default_user_message">Error : %1$s</string>
