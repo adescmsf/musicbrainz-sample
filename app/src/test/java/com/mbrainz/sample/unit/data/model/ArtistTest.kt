@@ -1,6 +1,7 @@
 package com.mbrainz.sample.unit.data.model
 
 import com.mbrainz.sample.TestFixtures
+import com.mbrainz.sample.data.model.ArtistType
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -29,5 +30,22 @@ class ArtistTest {
     fun `GIVEN no country code & no creationYear WHEN fullArtistName called THEN only band name is returned`() {
         val artist = TestFixtures.basicBandArtist.copy(country = "", creationYear = "")
         assertThat(artist.fullArtistName()).isEqualTo("Artist 1")
+    }
+
+    @Test
+    fun `GIVEN all information given WHEN allInformation() called THEN full string is formed`() {
+        val artist = TestFixtures.basicBandArtist
+        assertThat(artist.allInformation()).isEqualTo("\uD83C\uDDEB\uD83C\uDDF7 • Band artist • From Lyon • Since 1980")
+    }
+
+    @Test
+    fun `GIVEN no information given WHEN allInformation() called THEN empty string is returned`() {
+        val artist = TestFixtures.basicBandArtist.copy(
+            origin = "",
+            country = "",
+            creationYear = "",
+            type = ArtistType.UNKNOWN
+        )
+        assertThat(artist.allInformation()).isBlank
     }
 }

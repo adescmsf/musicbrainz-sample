@@ -52,8 +52,9 @@ class ArtistDetailFragment : Fragment() {
     }
 
     private fun FragmentDetailArtistBinding.init() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(fragmentDetailToolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // TODO: code smell
+        if (requireActivity() is AppCompatActivity) (requireActivity() as AppCompatActivity).setSupportActionBar(fragmentDetailToolbar)
+        if (requireActivity() is AppCompatActivity) (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
 
         fragmentDetailReleasesRecyclerView.apply {
@@ -90,7 +91,7 @@ class ArtistDetailFragment : Fragment() {
             fragmentDetailTitle.text = result.name
             fragmentDetailSubtitle.isVisible = result.genre.isNotEmpty()
             fragmentDetailSubtitle.text = result.genre
-            val artistInformations = result.allInformations()
+            val artistInformations = result.allInformation()
             fragmentDetailMore.isVisible = artistInformations.isNotEmpty()
             fragmentDetailMore.text = artistInformations
 

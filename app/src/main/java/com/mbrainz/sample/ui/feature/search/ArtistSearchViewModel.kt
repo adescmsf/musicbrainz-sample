@@ -32,7 +32,9 @@ class ArtistSearchViewModel(
         }
     }.stateIn(viewModelScope, SharingStarted.Lazily, ArtistSearchState.Success(emptyList()))
 
-    fun searchArtist(searchTerm: String) = viewModelScope.launch {
-        artist.emit(searchTerm)
+    fun searchArtist(searchTerm: String) {
+        viewModelScope.launch {
+            artist.emit(searchTerm)
+        }
     }
 }

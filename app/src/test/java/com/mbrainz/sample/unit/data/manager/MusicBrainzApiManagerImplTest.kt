@@ -11,8 +11,13 @@ class MusicBrainzApiManagerImplTest {
 
     @Test
     fun `WHEN search for offspring THEN first result is appropriate`() = runTest {
+        // GIVEN
         val apiManager = MusicBrainzApiManagerImpl()
+
+        // WHEN
         val res = apiManager.searchArtist("offspring")
+
+        // THEN
         assertThat(res.count).isGreaterThan(0)
         val topResult = res.artists.maxByOrNull { it.score }
         assertThat(topResult).isNotNull
@@ -21,8 +26,13 @@ class MusicBrainzApiManagerImplTest {
 
     @Test
     fun `WHEN retrieve artist releases THEN result is appropriate`() = runTest {
+        // GIVEN
         val apiManager = MusicBrainzApiManagerImpl()
+
+        // WHEN
         val res = apiManager.getArtistReleases("23a03e33-a603-404e-bcbf-2c00159d7067")
+
+        // THEN
         assertThat(res).isNotNull
         assertThat(res.releases.size).isGreaterThan(0)
     }

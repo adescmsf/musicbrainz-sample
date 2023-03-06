@@ -44,7 +44,8 @@ class ArtistSearchFragment : Fragment() {
     }
 
     private fun FragmentSearchArtistBinding.init() {
-        //(requireActivity() as AppCompatActivity).setSupportActionBar(fragmentSearchToolbar)
+        // TODO: code smell
+        if (requireActivity() is AppCompatActivity) (requireActivity() as AppCompatActivity).setSupportActionBar(fragmentSearchToolbar)
         fragmentSearchResultRecyclerView.apply {
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

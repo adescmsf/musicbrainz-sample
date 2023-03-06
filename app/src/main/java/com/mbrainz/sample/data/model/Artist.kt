@@ -30,14 +30,15 @@ data class Artist(
     }
 
     // TODO: should be i18n
-    fun allInformations(): String {
-        val informations = mutableListOf<String>()
-        if (country.isNotEmpty()) informations.add(countryEmoji())
-        if (bandType().isNotEmpty()) informations.add(bandType())
-        if (origin.isNotEmpty()) informations.add("From $origin")
-        if (creationYear.isNotEmpty()) informations.add("Since $creationYear")
-        if (informations.isEmpty()) return ""
-        return informations.joinToString(" • ")
+    // TODO: unit tests should cover every cases
+    fun allInformation(): String {
+        val information = mutableListOf<String>()
+        if (country.isNotEmpty()) information.add(countryEmoji())
+        if (bandType().isNotEmpty()) information.add(bandType())
+        if (origin.isNotEmpty()) information.add("From $origin")
+        if (creationYear.isNotEmpty()) information.add("Since $creationYear")
+        if (information.isEmpty()) return ""
+        return information.joinToString(" • ")
     }
 
     private fun countryEmoji(): String {

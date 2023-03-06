@@ -7,14 +7,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorPrimaryDark</item>
-        <item name="colorSecondaryVariant">@color/colorAccent</item>
-        <item name="colorOnSecondary">@color/white</item>
-
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorAccent</item>
         <item name="windowActionBar">false</item>
+        <!-- TODO: flag should be deactivated -->
+        <item name="android:forceDarkAllowed">false</item>
     </style>
 
     <style name="Theme.Mbrainzsample.Toolbar" parent="Theme.Mbrainzsample">
@@ -23,9 +20,9 @@
     </style>
 
     <style name="Widget.Mbrainzsample.Toolbar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:theme">@style/Theme.Mbrainzsample.Toolbar</item>
         <item name="android:background">@color/colorPrimary</item>
         <item name="titleTextColor">@color/white</item>
-        <item name="android:theme">@style/Theme.Mbrainzsample.Toolbar</item>
     </style>
 
     <style name="FormScreenTextField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">

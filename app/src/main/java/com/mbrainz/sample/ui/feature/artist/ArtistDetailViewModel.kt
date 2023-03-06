@@ -3,12 +3,9 @@ package com.mbrainz.sample.ui.feature.artist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbrainz.sample.data.ArtistRepository
-import com.mbrainz.sample.ui.feature.search.ArtistSearchState
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
 
@@ -27,9 +24,11 @@ class ArtistDetailViewModel(
         } catch (exception: Exception) {
             emit(ArtistViewState.Error(exception))
         }
-    }.stateIn(viewModelScope, SharingStarted.Lazily, ArtistSearchState.Success(emptyList()))
+    }
 
-    fun retrieveArtistInformation(id: String) = viewModelScope.launch {
-        artistId.emit(id)
+    fun retrieveArtistInformation(id: String) {
+        viewModelScope.launch {
+            artistId.emit(id)
+        }
     }
 }

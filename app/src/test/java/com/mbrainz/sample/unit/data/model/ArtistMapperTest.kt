@@ -9,9 +9,11 @@ import org.junit.Test
 class ArtistMapperTest {
     @Test
     fun `WHEN artist entity parsed THEN all business rules are applied`() {
+        // WHEN
         val res = ArtistMapper.transformArtistsEntity(
             listOf(TestFixtures.basicBandArtistEntity, TestFixtures.basicSoloArtistEntity, TestFixtures.basicUnknownArtistEntity)
         )
+        // THEN
         // assert that artists with score < 30 are excluded
         assertThat(res.size).isEqualTo(2)
 

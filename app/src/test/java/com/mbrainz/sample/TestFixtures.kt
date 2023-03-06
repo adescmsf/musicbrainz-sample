@@ -2,6 +2,7 @@ package com.mbrainz.sample
 
 import com.mbrainz.sample.data.model.Artist
 import com.mbrainz.sample.data.model.ArtistType
+import com.mbrainz.sample.data.model.Release
 import com.mbrainz.sample.data.model.remote.ArtistEntity
 import com.mbrainz.sample.data.model.remote.BeginAreaEntity
 import com.mbrainz.sample.data.model.remote.LifeSpanEntity
@@ -47,6 +48,10 @@ object TestFixtures {
         artistId = "a3",
         name = "Artist 3",
     )
+    private val basicRelease = Release(
+        name = release1Name,
+        releaseDate = "1980"
+    )
     val basicBandArtist = Artist(
         name = "Artist 1",
         genre = "rock",
@@ -54,7 +59,7 @@ object TestFixtures {
         country = "FR",
         creationYear = "1980",
         matchScore = 100,
-        releases = emptyList(),
+        releases = listOf(basicRelease),
         origin = "Lyon",
         id = artistId1
     )

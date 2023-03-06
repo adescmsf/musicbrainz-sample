@@ -37,6 +37,12 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
@@ -74,12 +80,37 @@ dependencies {
 
     // Koin Test features
     testImplementation "io.insert-koin:koin-test:$koin_version"
-    testImplementation "io.insert-koin:koin-test-junit5:$koin_version"
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
+
+    def androidx_espresso_version = "3.5.1"
+    def barista_version = "4.2.0"
+
+    // androidx test
+    testImplementation "androidx.test:core:1.5.0"
+    testImplementation "androidx.test:rules:1.5.0"
+    testImplementation "androidx.test:runner:1.5.2"
+    testImplementation "androidx.test:core-ktx:1.5.0"
+    testImplementation 'androidx.test.ext:junit-ktx:1.1.5'
+    debugImplementation "androidx.fragment:fragment-testing:1.5.5"
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.assertj:assertj-core:3.19.0'
     testImplementation "io.mockk:mockk:1.11.0"
+    testImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_version"
+    testImplementation 'org.robolectric:robolectric:4.9'
+    testImplementation("com.adevinta.android:barista:$barista_version") {
+        exclude group: 'org.jetbrains.kotlin' // Only if you already use Kotlin in your project
+    }
+    testImplementation 'app.cash.turbine:turbine:0.12.1'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.5'
+    debugImplementation "androidx.test:monitor:1.6.1"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_version"
+    androidTestImplementation("com.adevinta.android:barista:$barista_version") {
+        exclude group: 'org.jetbrains.kotlin' // Only if you already use Kotlin in your project
+    }
+    androidTestImplementation ('org.awaitility:awaitility:4.2.0') {
+        exclude group: 'org.hamcrest' // Only if you already use Kotlin in your project
+    }
 }
