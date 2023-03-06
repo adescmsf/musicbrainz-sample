@@ -1,6 +1,6 @@
 package com.mbrainz.sample.data.model
 
-import com.mbrainz.sample.ui.common.countryCodeToUnicodeFlag
+import com.mbrainz.sample.common.countryCodeToUnicodeFlag
 import java.util.Locale
 
 enum class ArtistType(val value: String) {

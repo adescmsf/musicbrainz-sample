@@ -18,7 +18,10 @@ import com.mbrainz.sample.R
 import com.mbrainz.sample.data.model.Artist
 import com.mbrainz.sample.databinding.FragmentDetailArtistBinding
 import com.mbrainz.sample.ui.common.UserErrorDisplay
+import com.mbrainz.sample.ui.common.hide
+import com.mbrainz.sample.ui.common.show
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ArtistDetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailArtistBinding
@@ -26,7 +29,7 @@ class ArtistDetailFragment : Fragment() {
     private val args: ArtistDetailFragmentArgs by navArgs()
     private val releasesAdapter = ReleaseDetailAdapter()
     private val userErrorDisplay: UserErrorDisplay by inject()
-    private val viewModel: ArtistDetailViewModel by inject()
+    private val viewModel: ArtistDetailViewModel by viewModel()
 
     @CallSuper
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -61,7 +64,7 @@ class ArtistDetailFragment : Fragment() {
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = releasesAdapter
-            isVisible = true
+            show()
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
         fragmentDetailRetryButton.setOnClickListener {
@@ -82,52 +85,55 @@ class ArtistDetailFragment : Fragment() {
     }
 
     private fun setResultState(result: Artist) {
-        binding.apply {
-            fragmentDetailErrorTextview.isVisible = false
-            fragmentDetailRetryButton.isVisible = false
-            fragmentDetailProgressBar.isVisible = false
-
-            fragmentDetailCard.isVisible = true
+        with(binding) {
+            // handling card
+            fragmentDetailCard.show()
             fragmentDetailTitle.text = result.name
             fragmentDetailSubtitle.isVisible = result.genre.isNotEmpty()
             fragmentDetailSubtitle.text = result.genre
-            val artistInformations = result.allInformation()
-            fragmentDetailMore.isVisible = artistInformations.isNotEmpty()
-            fragmentDetailMore.text = artistInformations
+            // handle information line
+            val artistInformation = result.allInformation()
+            fragmentDetailMore.isVisible = artistInformation.isNotEmpty()
+            fragmentDetailMore.text = artistInformation
 
+            // handle releases rv
             releasesAdapter.updateReleasesList(result.releases)
             if (result.releases.isNotEmpty()) {
-                fragmentDetailReleasesRecyclerView.isVisible = true
-                fragmentDetailHeader.isVisible = true
+                fragmentDetailReleasesRecyclerView.show()
+                fragmentDetailHeader.show()
                 fragmentDetailHeader.text = getString(R.string.fragment_detail_release_header, "${result.releases.size}")
             } else {
-                fragmentDetailReleasesRecyclerView.isVisible = false
-                fragmentDetailHeader.isVisible = false
+                fragmentDetailReleasesRecyclerView.hide()
+                fragmentDetailHeader.hide()
             }
+
+            fragmentDetailErrorTextview.hide()
+            fragmentDetailRetryButton.hide()
+            fragmentDetailProgressBar.hide()
         }
     }
 
     private fun setErrorState() {
-        binding.apply {
-            fragmentDetailCard.isVisible = false
-            fragmentDetailReleasesRecyclerView.isVisible = false
-            fragmentDetailHeader.isVisible = false
-            fragmentDetailProgressBar.isVisible = false
+        with(binding) {
+            fragmentDetailErrorTextview.show()
+            fragmentDetailRetryButton.show()
 
-            fragmentDetailErrorTextview.isVisible = true
-            fragmentDetailRetryButton.isVisible = true
+            fragmentDetailCard.hide()
+            fragmentDetailReleasesRecyclerView.hide()
+            fragmentDetailHeader.hide()
+            fragmentDetailProgressBar.hide()
         }
     }
 
     private fun setLoadingState() {
-        binding.apply {
-            fragmentDetailCard.isVisible = false
-            fragmentDetailReleasesRecyclerView.isVisible = false
-            fragmentDetailHeader.isVisible = false
-            fragmentDetailErrorTextview.isVisible = false
-            fragmentDetailRetryButton.isVisible = false
+        with(binding) {
+            fragmentDetailProgressBar.show()
 
-            fragmentDetailProgressBar.isVisible = true
+            fragmentDetailCard.hide()
+            fragmentDetailReleasesRecyclerView.hide()
+            fragmentDetailHeader.hide()
+            fragmentDetailErrorTextview.hide()
+            fragmentDetailRetryButton.hide()
         }
     }
 }
