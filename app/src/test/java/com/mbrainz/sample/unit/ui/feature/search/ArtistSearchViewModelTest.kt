@@ -22,7 +22,7 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class ArtistSearchViewModelTest {
     private val mockRepository = mockk<ArtistRepository>()
-    lateinit var viewModel: ArtistSearchViewModel
+    private lateinit var viewModel: ArtistSearchViewModel
 
     @Before
     fun setUp() {
@@ -37,7 +37,7 @@ class ArtistSearchViewModelTest {
     }
 
     @Test
-    fun `GIVEN nominal case WHEN search for Artist with complete name THEN emit loading and results`() = runTest() {
+    fun `GIVEN nominal case WHEN search for Artist with complete name THEN emit loading and results`() = runTest {
         // GIVEN
         coEvery { mockRepository.searchArtist(any()) } coAnswers {
             delay(200)
@@ -59,7 +59,7 @@ class ArtistSearchViewModelTest {
     }
 
     @Test
-    fun `GIVEN nominal case WHEN search for Artist with 2 chars THEN emits empty results`() = runTest() {
+    fun `GIVEN nominal case WHEN search for Artist with 2 chars THEN emits empty results`() = runTest {
         // GIVEN
         coEvery { mockRepository.searchArtist(any()) } returns listOf(TestFixtures.basicBandArtist)
 
@@ -75,7 +75,7 @@ class ArtistSearchViewModelTest {
     }
 
     @Test
-    fun `GIVEN error case WHEN search for Artist with complete name THEN emit loading and error`() = runTest() {
+    fun `GIVEN error case WHEN search for Artist with complete name THEN emit loading and error`() = runTest {
         // GIVEN
         coEvery { mockRepository.searchArtist(any()) } coAnswers {
             delay(200)

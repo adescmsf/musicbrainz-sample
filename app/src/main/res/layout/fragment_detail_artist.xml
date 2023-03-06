@@ -9,7 +9,7 @@
         style="@style/Widget.Mbrainzsample.Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/fragment_detail_card"
@@ -18,12 +18,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/default_big_margin"
         style="@style/Widget.MaterialComponents.CardView"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@color/cardview_light_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/fragment_detail_title"
                 android:layout_marginTop="5dp"
@@ -34,9 +37,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/fragment_detail_subtitle"
-                android:text="This is my title"
-                />
+                app:layout_constraintBottom_toTopOf="@id/fragment_detail_subtitle"/>
+
             <TextView
                 android:id="@+id/fragment_detail_subtitle"
                 android:layout_width="wrap_content"
@@ -53,9 +55,8 @@
                 app:layout_constraintTop_toBottomOf="@id/fragment_detail_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/fragment_detail_more"
-                android:text="this is my style"
-                />
+                app:layout_constraintBottom_toTopOf="@id/fragment_detail_more"/>
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/fragment_detail_more"
                 android:layout_width="wrap_content"
@@ -65,9 +66,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="@dimen/default_margin"
-                android:text="This is my detail"
-                />
+                android:layout_marginBottom="@dimen/default_margin"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -79,22 +78,23 @@
         android:paddingTop="10dp"
         android:layout_marginHorizontal="@dimen/default_big_margin"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/fragment_detail_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/fragment_detail_release_header"
-        />
+        android:text="@string/fragment_detail_release_header"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_detail_releases_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="5dp"
         android:layout_marginHorizontal="@dimen/default_big_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_header" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_header"/>
 
     <ProgressBar
         android:id="@+id/fragment_detail_progress_bar"
@@ -103,6 +103,7 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:indeterminateTint="@color/colorPrimaryDark"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -115,11 +116,11 @@
         android:text="@string/error_default_message"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/fragment_detail_retry_button"
@@ -128,8 +129,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fragment_form_button_top_margin"
         android:text="@string/button_retry"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/fragment_detail_error_textview"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintRight_toRightOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

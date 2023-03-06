@@ -16,6 +16,7 @@ import com.mbrainz.sample.ui.feature.artist.ArtistDetailViewModel
 import com.mbrainz.sample.ui.feature.artist.ArtistViewState
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
@@ -32,6 +33,7 @@ import org.robolectric.annotation.Config
 @Config(application = TestApplication::class)
 class ArtistDetailFragmentTest : AutoCloseKoinTest() {
     private lateinit var scenario: FragmentScenario<ArtistDetailFragment>
+    private lateinit var mockViewModel: ArtistDetailViewModel
     private val fakeArtistStateFlow: MutableStateFlow<ArtistViewState> = MutableStateFlow(
         ArtistViewState.Error(Exception("empty"))
     )
@@ -39,11 +41,11 @@ class ArtistDetailFragmentTest : AutoCloseKoinTest() {
     @Before
     fun setUp() {
         // GIVEN
-        val viewModel = mockk<ArtistDetailViewModel>()
-        every { viewModel.retrieveArtistInformation(any()) } returns Unit
-        every { viewModel.artist } returns fakeArtistStateFlow
+        mockViewModel = mockk()
+        every { mockViewModel.retrieveArtistInformation(any()) } returns Unit
+        every { mockViewModel.artist } returns fakeArtistStateFlow
         val testModule = module(true) {
-            single { viewModel }
+            single { mockViewModel }
         }
         loadKoinModules(testModule)
         val bundle = Bundle().apply {
@@ -52,6 +54,14 @@ class ArtistDetailFragmentTest : AutoCloseKoinTest() {
         scenario = launchFragmentInContainer(
             fragmentArgs = ArtistDetailFragmentArgs.fromBundle(bundle).toBundle()
         )
+    }
+
+    @Test
+    fun `WHEN fragment is loaded THEN viewModel loads the artistId`() {
+        // THEN
+        verify {
+            mockViewModel.retrieveArtistInformation(any())
+        }
     }
 
     @Test

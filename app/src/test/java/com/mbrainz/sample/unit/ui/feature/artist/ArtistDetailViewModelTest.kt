@@ -22,7 +22,7 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class ArtistDetailViewModelTest {
     private val mockRepository = mockk<ArtistRepository>()
-    lateinit var viewModel: ArtistDetailViewModel
+    private lateinit var viewModel: ArtistDetailViewModel
 
     @Before
     fun setUp() {

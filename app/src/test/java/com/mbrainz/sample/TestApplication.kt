@@ -17,7 +17,7 @@ class TestApplication : Application() {
                 modules((dataModules + uiModules).toList())
             }
         } catch (e: IllegalStateException) {
-            Log.e("AntibiogoTestApp", "Koin initialization exception: ", e)
+            Log.e("TestApp", "Koin initialization exception: ", e)
         }
     }
 }

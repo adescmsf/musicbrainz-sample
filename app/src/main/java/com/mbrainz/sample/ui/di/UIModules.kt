@@ -9,7 +9,6 @@ import com.mbrainz.sample.ui.feature.artist.ArtistDetailViewModel
 import com.mbrainz.sample.ui.feature.search.ArtistSearchViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.scope.get
 import org.koin.dsl.module
 
 private val applicationModules = module {

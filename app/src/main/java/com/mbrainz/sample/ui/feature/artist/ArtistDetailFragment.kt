@@ -44,6 +44,7 @@ class ArtistDetailFragment : Fragment() {
         viewModel.retrieveArtistInformation(args.artistId)
     }
 
+    @Deprecated("Should be removed for next Android version")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

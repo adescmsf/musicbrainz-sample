@@ -6,6 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adevinta.android.barista.assertion.BaristaListAssertions.assertDisplayedAtPosition
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed
+import com.adevinta.android.barista.interaction.BaristaEditTextInteractions.writeTo
 import com.mbrainz.sample.R
 import com.mbrainz.sample.TestApplication
 import com.mbrainz.sample.TestFixtures
@@ -14,6 +15,7 @@ import com.mbrainz.sample.ui.feature.search.ArtistSearchState
 import com.mbrainz.sample.ui.feature.search.ArtistSearchViewModel
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
@@ -30,16 +32,17 @@ import org.robolectric.annotation.Config
 @Config(application = TestApplication::class)
 class ArtistSearchFragmentTest : AutoCloseKoinTest() {
     private lateinit var scenario: FragmentScenario<ArtistSearchFragment>
+    private lateinit var mockViewModel: ArtistSearchViewModel
     private val fakeSearchStateFlow: MutableStateFlow<ArtistSearchState> = MutableStateFlow(ArtistSearchState.Success(emptyList()))
 
     @Before
     fun setUp() {
         // GIVEN
-        val viewModel = mockk<ArtistSearchViewModel>()
-        every { viewModel.searchArtist(any()) } returns Unit
-        every { viewModel.searchedArtist } returns fakeSearchStateFlow
+        mockViewModel = mockk()
+        every { mockViewModel.searchArtist(any()) } returns Unit
+        every { mockViewModel.searchedArtist } returns fakeSearchStateFlow
         val testModule = module(true) {
-            single { viewModel }
+            single { mockViewModel }
         }
         loadKoinModules(testModule)
         scenario = launchFragmentInContainer()
@@ -55,6 +58,17 @@ class ArtistSearchFragmentTest : AutoCloseKoinTest() {
         assertNotDisplayed(R.id.fragment_search_rv_header)
         assertNotDisplayed(R.id.fragment_search_error_textview)
         assertNotDisplayed(R.id.fragment_search_retry_button)
+    }
+
+    @Test
+    fun `WHEN input in search field THEN viewModel is called`() {
+        // WHEN
+        writeTo(R.id.fragment_search_string_edit_text, "test")
+
+        // THEN
+        verify {
+            mockViewModel.searchArtist(any())
+        }
     }
 
     @Test
