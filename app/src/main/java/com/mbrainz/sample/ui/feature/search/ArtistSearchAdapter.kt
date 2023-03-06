@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.mbrainz.sample.common.trimChar
 import com.mbrainz.sample.data.model.Artist
 import com.mbrainz.sample.databinding.ItemSearchArtistBinding
-import com.mbrainz.sample.ui.common.trimChar
 
 class ArtistSearchAdapter(
     private val onArtistSelected: (Artist) -> Unit
@@ -21,9 +21,8 @@ class ArtistSearchAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(artists[position])
-        holder.itemView.setOnClickListener {
-            onArtistSelected(artists[position])
+        holder.bind(artists[position]) { selectedIndex ->
+            onArtistSelected(artists[selectedIndex])
         }
     }
 
@@ -40,12 +39,18 @@ class ArtistSearchAdapter(
     class ViewHolder(
         private val binding: ItemSearchArtistBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(artist: Artist) {
+        fun bind(
+            artist: Artist,
+            selectedListener: (index: Int) -> Unit
+        ) {
             val genre = artist.genre.trimChar(16)
-            binding.apply {
+            with(binding) {
                 itemSearchArtistName.text = artist.fullArtistName()
                 itemSearchArtistGenre.isVisible = genre.isNotEmpty()
                 itemSearchArtistGenre.text = genre
+                root.setOnClickListener {
+                    selectedListener(bindingAdapterPosition)
+                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.mbrainz.sample.ui.common
+package com.mbrainz.sample.common
 
 /**
  * Converts an ISO 3166-1 alpha-2 country code to the corresponding Unicode flag emoji.
@@ -7,7 +7,7 @@ package com.mbrainz.sample.ui.common
 fun String.countryCodeToUnicodeFlag(): String {
     return this
         .filter { it in 'A'..'Z' }
-        .map { it.toByte() }
+        .map { it.code.toByte() }
         .flatMap { char ->
             listOf(
                 // First UTF-16 char is \uD83C
@@ -15,7 +15,7 @@ fun String.countryCodeToUnicodeFlag(): String {
                 0x3C.toByte(),
                 // Second char is \uDDE6 for A and increments from there
                 0xDD.toByte(),
-                (0xE6.toByte() + (char - 'A'.toByte())).toByte()
+                (0xE6.toByte() + (char - 'A'.code.toByte())).toByte()
             )
         }
         .toByteArray()

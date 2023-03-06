@@ -1,6 +1,6 @@
 package com.mbrainz.sample.unit.common
 
-import com.mbrainz.sample.ui.common.trimChar
+import com.mbrainz.sample.common.trimChar
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 

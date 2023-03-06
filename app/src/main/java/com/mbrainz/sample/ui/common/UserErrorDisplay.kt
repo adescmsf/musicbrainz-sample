@@ -14,7 +14,7 @@ class UserErrorDisplayToastImpl(
     private val logger: Logger
 ) : UserErrorDisplay {
     override fun displayUserMessage(exception: Exception) {
-        logger.logInfo("Exception in UserErrorDisplayToastImpl : ${exception.stackTrace}")
+        logger.logInfo("Exception in UserErrorDisplayToastImpl : ${exception.printStackTrace()}")
         val message = context.resources.getString(R.string.error_default_user_message, exception.message)
         Toast
             .makeText(context, message, Toast.LENGTH_SHORT)

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +16,8 @@ import com.mbrainz.sample.R
 import com.mbrainz.sample.data.model.Artist
 import com.mbrainz.sample.databinding.FragmentSearchArtistBinding
 import com.mbrainz.sample.ui.common.UserErrorDisplay
+import com.mbrainz.sample.ui.common.hide
+import com.mbrainz.sample.ui.common.show
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -50,7 +51,7 @@ class ArtistSearchFragment : Fragment() {
             layoutManager =
                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = artistsAdapter
-            isVisible = true
+            show()
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
         fragmentSearchStringEditText.doOnTextChanged { text, _, _, _ ->
@@ -83,46 +84,49 @@ class ArtistSearchFragment : Fragment() {
     }
 
     private fun setErrorState() {
-        binding.apply {
+        with(binding) {
+            fragmentSearchErrorTextview.show()
+            fragmentSearchRetryButton.show()
             fragmentSearchStringEditText.clearFocus()
-            fragmentSearchRvHeader.isVisible = false
-            fragmentSearchResultRecyclerView.isVisible = false
-            fragmentSearchProgressBar.isVisible = false
-            fragmentSearchErrorTextview.isVisible = true
-            fragmentSearchRetryButton.isVisible = true
+
+            fragmentSearchRvHeader.hide()
+            fragmentSearchResultRecyclerView.hide()
+            fragmentSearchProgressBar.hide()
         }
     }
 
     private fun setEmptyState() {
         artistsAdapter.updateArtistsList(emptyList())
-        binding.apply {
-            fragmentSearchRvHeader.isVisible = false
-            fragmentSearchResultRecyclerView.isVisible = false
-            fragmentSearchProgressBar.isVisible = false
-            fragmentSearchErrorTextview.isVisible = false
-            fragmentSearchRetryButton.isVisible = false
+        with(binding) {
+            fragmentSearchRvHeader.hide()
+            fragmentSearchResultRecyclerView.hide()
+            fragmentSearchProgressBar.hide()
+            fragmentSearchErrorTextview.hide()
+            fragmentSearchRetryButton.hide()
         }
     }
 
     private fun setResultState(result: List<Artist>) {
-        binding.apply {
+        with(binding) {
             fragmentSearchRvHeader.text = getString(R.string.fragment_search_result_header, "${result.size}")
-            fragmentSearchRvHeader.isVisible = true
-            fragmentSearchResultRecyclerView.isVisible = true
-            fragmentSearchProgressBar.isVisible = false
-            fragmentSearchErrorTextview.isVisible = false
-            fragmentSearchRetryButton.isVisible = false
+            fragmentSearchRvHeader.show()
+            fragmentSearchResultRecyclerView.show()
+
+            fragmentSearchProgressBar.hide()
+            fragmentSearchErrorTextview.hide()
+            fragmentSearchRetryButton.hide()
         }
         artistsAdapter.updateArtistsList(result)
     }
 
     private fun setLoadingState() {
-        binding.apply {
-            fragmentSearchRvHeader.isVisible = false
-            fragmentSearchResultRecyclerView.isVisible = false
-            fragmentSearchProgressBar.isVisible = true
-            fragmentSearchErrorTextview.isVisible = false
-            fragmentSearchRetryButton.isVisible = false
+        with(binding) {
+            fragmentSearchProgressBar.show()
+
+            fragmentSearchRvHeader.hide()
+            fragmentSearchResultRecyclerView.hide()
+            fragmentSearchErrorTextview.hide()
+            fragmentSearchRetryButton.hide()
         }
     }
 
